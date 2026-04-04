@@ -1,6 +1,6 @@
 # 📚 DSA Practice Lab
 
-This repository contains my solutions for the Data Structure Lab (C/C++).
+This repository contains my solutions for the Data Structure Lab (C/C++)..
 
 ## 🚀 Assignment 1: Introduction to Data Structures
 Status: ✅ Completed
