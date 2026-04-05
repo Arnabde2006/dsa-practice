@@ -1,7 +1,5 @@
-====================================================================
     DATA STRUCTURE LAB ASSIGNMENT 2 - SOLUTIONS
     BCACC291 - BCA 2nd SEMESTER
-====================================================================
 
 This document contains solutions for all three assignment questions.
 
