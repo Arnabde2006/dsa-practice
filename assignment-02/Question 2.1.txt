@@ -1,0 +1,76 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+int stack[MAX];
+int top = -1;
+
+// Function to insert/push element into stack
+void push() {
+    int value;
+    if (top == MAX - 1) {
+        printf("\nStack Overflow! Cannot insert more elements.\n");
+        return;
+    }
+    printf("Enter value to push: ");
+    scanf("%d", &value);
+    top++;
+    stack[top] = value;
+    printf("Value %d pushed successfully!\n", value);
+}
+
+// Function to delete/pop element from stack
+void pop() {
+    if (top == -1) {
+        printf("\nStack Underflow! Stack is empty.\n");
+        return;
+    }
+    printf("Popped value: %d\n", stack[top]);
+    top--;
+}
+
+// Function to display stack elements
+void display() {
+    if (top == -1) {
+        printf("\nStack is empty!\n");
+        return;
+    }
+    printf("\nStack elements (top to bottom):\n");
+    for (int i = top; i >= 0; i--) {
+        printf("%d\n", stack[i]);
+    }
+}
+
+int main() {
+    int choice;
+    
+    while (1) {
+        printf("\n=== STACK OPERATIONS ===\n");
+        printf("1. Push (Insert)\n");
+        printf("2. Pop (Delete)\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                push();
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                printf("Exiting program...\n");
+                exit(0);
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    
+    return 0;
+}

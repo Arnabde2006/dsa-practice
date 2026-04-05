@@ -1,0 +1,193 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 50
+
+// Define student structure
+struct student {
+    int roll;
+    char std_name[50];
+    float maths_marks;
+    float english_marks;
+    int rank;
+};
+
+// Stack implementation
+struct student stack[MAX];
+int top = -1;
+
+// Function to push student record into stack
+void push() {
+    if (top == MAX - 1) {
+        printf("\nStack Overflow! Cannot add more records.\n");
+        return;
+    }
+    
+    top++;
+    printf("\nEnter details for student %d:\n", top + 1);
+    printf("Roll Number: ");
+    scanf("%d", &stack[top].roll);
+    printf("Student Name: ");
+    scanf("%s", stack[top].std_name);
+    printf("Maths Marks: ");
+    scanf("%f", &stack[top].maths_marks);
+    printf("English Marks: ");
+    scanf("%f", &stack[top].english_marks);
+    stack[top].rank = 0; // Rank will be calculated later
+    
+    printf("Record added successfully!\n");
+}
+
+// Function to pop/delete student record from stack
+void pop() {
+    if (top == -1) {
+        printf("\nStack is empty! No records to delete.\n");
+        return;
+    }
+    
+    printf("\nDeleted Record:\n");
+    printf("Roll: %d, Name: %s, Maths: %.2f, English: %.2f\n",
+           stack[top].roll, stack[top].std_name,
+           stack[top].maths_marks, stack[top].english_marks);
+    top--;
+}
+
+// Function to display all student records
+void display() {
+    if (top == -1) {
+        printf("\nNo records to display!\n");
+        return;
+    }
+    
+    printf("\n===== STUDENT RECORDS =====\n");
+    printf("%-10s %-20s %-10s %-10s %-10s\n", 
+           "Roll", "Name", "Maths", "English", "Total");
+    printf("----------------------------------------------------------\n");
+    
+    for (int i = top; i >= 0; i--) {
+        float total = stack[i].maths_marks + stack[i].english_marks;
+        printf("%-10d %-20s %-10.2f %-10.2f %-10.2f\n",
+               stack[i].roll, stack[i].std_name,
+               stack[i].maths_marks, stack[i].english_marks, total);
+    }
+}
+
+// Function to display list of students roll-wise
+void displayRollWise() {
+    if (top == -1) {
+        printf("\nNo records available!\n");
+        return;
+    }
+    
+    printf("\n===== ROLL-WISE LIST =====\n");
+    for (int i = top; i >= 0; i--) {
+        printf("Roll No: %d - Name: %s\n", stack[i].roll, stack[i].std_name);
+    }
+}
+
+// Function to calculate total marks for each student
+void calculateTotalMarks() {
+    if (top == -1) {
+        printf("\nNo records available!\n");
+        return;
+    }
+    
+    printf("\n===== TOTAL MARKS =====\n");
+    printf("%-10s %-20s %-10s\n", "Roll", "Name", "Total");
+    printf("------------------------------------------\n");
+    
+    for (int i = top; i >= 0; i--) {
+        float total = stack[i].maths_marks + stack[i].english_marks;
+        printf("%-10d %-20s %-10.2f\n",
+               stack[i].roll, stack[i].std_name, total);
+    }
+}
+
+// Function to display students in descending order of marks
+void displayByMarks() {
+    if (top == -1) {
+        printf("\nNo records available!\n");
+        return;
+    }
+    
+    // Create a temporary array to sort
+    struct student temp[MAX];
+    int count = top + 1;
+    
+    // Copy stack elements to temp array
+    for (int i = 0; i < count; i++) {
+        temp[i] = stack[i];
+    }
+    
+    // Calculate total marks and sort in descending order
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = i + 1; j < count; j++) {
+            float total_i = temp[i].maths_marks + temp[i].english_marks;
+            float total_j = temp[j].maths_marks + temp[j].english_marks;
+            
+            if (total_i < total_j) {
+                struct student swap = temp[i];
+                temp[i] = temp[j];
+                temp[j] = swap;
+            }
+        }
+    }
+    
+    printf("\n===== STUDENTS BY DESCENDING ORDER OF MARKS =====\n");
+    printf("%-10s %-20s %-10s %-10s %-10s\n", 
+           "Rank", "Roll", "Name", "Total", "Marks");
+    printf("------------------------------------------------------------\n");
+    
+    for (int i = 0; i < count; i++) {
+        float total = temp[i].maths_marks + temp[i].english_marks;
+        printf("%-10d %-10d %-20s %-10.2f (M:%.2f, E:%.2f)\n",
+               i + 1, temp[i].roll, temp[i].std_name,
+               total, temp[i].maths_marks, temp[i].english_marks);
+    }
+}
+
+int main() {
+    int choice;
+    
+    while (1) {
+        printf("\n========== STUDENT RECORD MANAGEMENT ==========\n");
+        printf("1. Add Student Record (Push)\n");
+        printf("2. Delete Student Record (Pop)\n");
+        printf("3. Display All Records\n");
+        printf("4. Display Roll-wise List\n");
+        printf("5. Calculate Total Marks\n");
+        printf("6. Display Students by Descending Order of Marks\n");
+        printf("7. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        
+        switch (choice) {
+            case 1:
+                push();
+                break;
+            case 2:
+                pop();
+                break;
+            case 3:
+                display();
+                break;
+            case 4:
+                displayRollWise();
+                break;
+            case 5:
+                calculateTotalMarks();
+                break;
+            case 6:
+                displayByMarks();
+                break;
+            case 7:
+                printf("Exiting program...\n");
+                exit(0);
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    
+    return 0;
+}
