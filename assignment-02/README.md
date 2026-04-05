@@ -221,6 +221,6 @@ NOTES
 - Each program can be compiled and run independently
 
 --------------------------------------------------------------------
-AUTHOR: Assignment Solution for BCACC291
+AUTHOR: Arnab De
 DATE: February 2026
 --------------------------------------------------------------------
